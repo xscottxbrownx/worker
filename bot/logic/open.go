@@ -510,9 +510,8 @@ func OpenTicket(ctx context.Context, cmd registry.InteractionContext, panel *dat
 			}
 		}
 
-		content = fmt.Sprintf("-# ||%s||", content)
-
 		if content != "" {
+			content = fmt.Sprintf("-# ||%s||", content)
 			if len(content) > 2000 {
 				content = content[:2000]
 			}
