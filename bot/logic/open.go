@@ -4,6 +4,10 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"strconv"
+	"strings"
+	"time"
+
 	permcache "github.com/TicketsBot/common/permission"
 	"github.com/TicketsBot/common/premium"
 	"github.com/TicketsBot/common/sentry"
@@ -27,9 +31,6 @@ import (
 	"github.com/rxdn/gdl/rest"
 	"github.com/rxdn/gdl/rest/request"
 	"golang.org/x/sync/errgroup"
-	"strconv"
-	"strings"
-	"time"
 )
 
 func OpenTicket(ctx context.Context, cmd registry.InteractionContext, panel *database.Panel, subject string, formData map[database.FormInput]string) (database.Ticket, error) {
@@ -509,13 +510,15 @@ func OpenTicket(ctx context.Context, cmd registry.InteractionContext, panel *dat
 			}
 		}
 
+		content = fmt.Sprintf("-# ||%s||", content)
+
 		if content != "" {
 			if len(content) > 2000 {
 				content = content[:2000]
 			}
 
 			span := sentry.StartSpan(rootSpan.Context(), "Send ping message")
-			pingMessage, err := cmd.Worker().CreateMessageComplex(ch.Id, rest.CreateMessageData{
+			_, err := cmd.Worker().CreateMessageComplex(ch.Id, rest.CreateMessageData{
 				Content: content,
 				AllowedMentions: message.AllowedMention{
 					Parse: []message.AllowedMentionType{
@@ -531,10 +534,11 @@ func OpenTicket(ctx context.Context, cmd registry.InteractionContext, panel *dat
 				return err
 			}
 
+			// Disable delete message
 			// error is likely to be a permission error
-			span = sentry.StartSpan(span.Context(), "Delete ping message")
-			_ = cmd.Worker().DeleteMessage(ch.Id, pingMessage.Id)
-			span.Finish()
+			// span = sentry.StartSpan(span.Context(), "Delete ping message")
+			// _ = cmd.Worker().DeleteMessage(ch.Id, pingMessage.Id)
+			// span.Finish()
 		}
 
 		return nil
