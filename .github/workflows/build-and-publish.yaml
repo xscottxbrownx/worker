@@ -8,7 +8,7 @@ env:
 
 on:
   push:
-    branches: [ "master", "feature/instant-defer" ]
+    branches: [ "master" ]
   workflow_dispatch:
 
 jobs:
@@ -50,7 +50,9 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ env.IMAGE_NAME }}
+          tags: |
+            ${{ env.IMAGE_NAME }}:latest
+            ${{ env.IMAGE_NAME }}:${{ github.sha }}
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Log image name
