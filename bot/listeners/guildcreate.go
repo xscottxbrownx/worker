@@ -3,6 +3,8 @@ package listeners
 import (
 	"context"
 	"fmt"
+	"time"
+
 	"github.com/TicketsBot/common/sentry"
 	"github.com/TicketsBot/worker"
 	"github.com/TicketsBot/worker/bot/blacklist"
@@ -15,7 +17,6 @@ import (
 	"github.com/rxdn/gdl/objects/guild"
 	"github.com/rxdn/gdl/permission"
 	"github.com/rxdn/gdl/rest"
-	"time"
 )
 
 // Fires when we receive a guild
@@ -71,14 +72,14 @@ func sendIntroMessage(ctx context.Context, worker *worker.Context, guild guild.G
 
 	msg := embed.NewEmbed().
 		SetTitle("Tickets").
-		SetDescription("Thank you for inviting Tickets to your server! Below is a quick guide on setting the bot up, please don't hesitate to contact us in our [support server](https://discord.gg/VtV3rSk) if you need any assistance!").
+		SetDescription("Thank you for inviting Tickets to your server! Below is a quick guide on setting the bot up, please don't hesitate to contact us in our [support server](https://discord.gg/ticketsbot) if you need any assistance!").
 		SetColor(customisation.GetColourOrDefault(ctx, guild.Id, customisation.Green)).
-		AddField("Setup", "You can setup the bot using `/setup`, or you can use the [dashboard](https://dashboard.ticketsbot.net) which has additional options", false).
-		AddField("Reaction Panels", fmt.Sprintf("Reaction panels are a commonly used feature of the bot. You can read about them [here](https://ticketsbot.net/panels), or create one on [the dashboard](https://dashboard.ticketsbot.net/manage/%d/panels)", guild.Id), false).
+		AddField("Setup", "You can setup the bot using `/setup`, or you can use the [dashboard](https://dashboard.ticketsbot.cloud) which has additional options", false).
+		AddField("Reaction Panels", fmt.Sprintf("Reaction panels are a commonly used feature of the bot. You can read about them [here](https://ticketsbot.cloud/panels), or create one on [the dashboard](https://dashboard.ticketsbot.cloud/manage/%d/panels)", guild.Id), false).
 		AddField("Adding Staff", "To make staff able to answer tickets, you must let the bot know about them first. You can do this through\n`/addsupport [@User / @Role]` and `/addadmin [@User / @Role]`. Administrators can change the settings of the bot and access the dashboard.", false).
-		AddField("Tags", "Tags are predefined tickets of text which you can access through a simple command. You can learn more about them [here](https://ticketsbot.net/tags).", false).
-		AddField("Claiming", "Tickets can be claimed by your staff such that other staff members cannot also reply to the ticket. You can learn more about claiming [here](https://ticketsbot.net/claiming).", false).
-		AddField("Additional Support", "If you are still confused, we welcome you to our [support server](https://discord.gg/VtV3rSk). Cheers.", false)
+		AddField("Tags", "Tags are predefined tickets of text which you can access through a simple command. You can learn more about them [here](https://ticketsbot.cloud/tags).", false).
+		AddField("Claiming", "Tickets can be claimed by your staff such that other staff members cannot also reply to the ticket. You can learn more about claiming [here](https://ticketsbot.cloud/claiming).", false).
+		AddField("Additional Support", "If you are still confused, we welcome you to our [support server](https://discord.gg/ticketsbot). Cheers.", false)
 
 	_, _ = worker.CreateMessageEmbed(channel.Id, msg)
 }

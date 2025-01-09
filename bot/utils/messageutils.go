@@ -2,6 +2,7 @@ package utils
 
 import (
 	"context"
+
 	"github.com/TicketsBot/common/premium"
 	"github.com/TicketsBot/worker"
 	"github.com/TicketsBot/worker/bot/command/registry"
@@ -30,7 +31,7 @@ func BuildEmbed(
 	}
 
 	if ctx.PremiumTier() == premium.None {
-		msgEmbed.SetFooter("Powered by ticketsbot.net", "https://ticketsbot.net/assets/img/logo.png")
+		msgEmbed.SetFooter("Powered by ticketsbot.cloud", "https://ticketsbot.net/assets/img/logo.png")
 	}
 
 	return msgEmbed
@@ -49,7 +50,7 @@ func BuildEmbedRaw(
 	}
 
 	if tier == premium.None {
-		msgEmbed.SetFooter("Powered by ticketsbot.net", "https://ticketsbot.net/assets/img/logo.png")
+		msgEmbed.SetFooter("Powered by ticketsbot.cloud", "https://ticketsbot.net/assets/img/logo.png")
 	}
 
 	return msgEmbed

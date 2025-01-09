@@ -3,6 +3,12 @@ package logic
 import (
 	"context"
 	"fmt"
+	"sort"
+	"strconv"
+	"strings"
+	"sync"
+	"time"
+
 	"github.com/TicketsBot/common/integrations/bloxlink"
 	"github.com/TicketsBot/common/premium"
 	"github.com/TicketsBot/common/sentry"
@@ -19,11 +25,6 @@ import (
 	"github.com/rxdn/gdl/objects/interaction/component"
 	"github.com/rxdn/gdl/rest"
 	"golang.org/x/sync/errgroup"
-	"sort"
-	"strconv"
-	"strings"
-	"sync"
-	"time"
 )
 
 // returns msg id
@@ -61,7 +62,7 @@ func SendWelcomeMessage(
 		}
 
 		if cmd.PremiumTier() == premium.None {
-			formAnswersEmbed.SetFooter("Powered by ticketsbot.net", "https://ticketsbot.net/assets/img/logo.png")
+			formAnswersEmbed.SetFooter("Powered by ticketsbot.cloud", "https://ticketsbot.net/assets/img/logo.png")
 		}
 
 		embeds = append(embeds, formAnswersEmbed)
@@ -577,7 +578,7 @@ func BuildCustomEmbed(
 	}
 
 	if branding {
-		e.SetFooter("Powered by ticketsbot.net", "https://ticketsbot.net/assets/img/logo.png")
+		e.SetFooter("Powered by ticketsbot.cloud", "https://ticketsbot.net/assets/img/logo.png")
 	} else if customEmbed.FooterText != nil {
 		e.SetFooter(*customEmbed.FooterText, utils.ValueOrZero(customEmbed.FooterIconUrl))
 	}

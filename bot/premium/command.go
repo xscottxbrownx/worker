@@ -2,6 +2,8 @@ package premium
 
 import (
 	"fmt"
+	"strings"
+
 	"github.com/TicketsBot/common/model"
 	"github.com/TicketsBot/database"
 	"github.com/TicketsBot/worker/bot/command"
@@ -14,7 +16,6 @@ import (
 	"github.com/jackc/pgx/v4"
 	"github.com/rxdn/gdl/objects/interaction"
 	"github.com/rxdn/gdl/objects/interaction/component"
-	"strings"
 )
 
 const PremiumStoreSku uint64 = 1274473638065606656
@@ -88,7 +89,7 @@ func BuildPatreonSubscriptionFoundMessage(ctx registry.CommandContext, legacyEnt
 				Label: ctx.GetMessage(i18n.MessagePremiumOpenServerSelector),
 				Style: component.ButtonStyleLink,
 				Emoji: utils.BuildEmoji("🔗"),
-				Url:   utils.Ptr("https://dashboard.ticketsbot.net/premium/select-servers"),
+				Url:   utils.Ptr("https://dashboard.ticketsbot.cloud/premium/select-servers"),
 			}),
 			component.BuildButton(component.Button{
 				Label:    ctx.GetMessage(i18n.MessagePremiumCheckAgain),

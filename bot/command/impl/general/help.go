@@ -1,6 +1,10 @@
 package general
 
 import (
+	"sort"
+	"strings"
+	"time"
+
 	"github.com/TicketsBot/common/permission"
 	"github.com/TicketsBot/common/premium"
 	"github.com/TicketsBot/worker/bot/command"
@@ -11,9 +15,6 @@ import (
 	"github.com/elliotchance/orderedmap"
 	"github.com/rxdn/gdl/objects/channel/embed"
 	"github.com/rxdn/gdl/objects/interaction"
-	"sort"
-	"strings"
-	"time"
 )
 
 type HelpCommand struct {
@@ -124,7 +125,7 @@ func (c HelpCommand) Execute(ctx registry.CommandContext) {
 	}
 
 	if ctx.PremiumTier() == premium.None {
-		embed.SetFooter("Powered by ticketsbot.net", "https://ticketsbot.net/assets/img/logo.png")
+		embed.SetFooter("Powered by ticketsbot.cloud", "https://ticketsbot.net/assets/img/logo.png")
 	}
 
 	// Explicitly ignore error to fix 403 (Cannot send messages to this user)

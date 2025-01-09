@@ -3,6 +3,8 @@ package logic
 import (
 	"context"
 	"fmt"
+	"strconv"
+
 	"github.com/TicketsBot/common/sentry"
 	"github.com/TicketsBot/database"
 	"github.com/TicketsBot/worker"
@@ -14,7 +16,6 @@ import (
 	"github.com/rxdn/gdl/objects/guild/emoji"
 	"github.com/rxdn/gdl/objects/interaction/component"
 	"github.com/rxdn/gdl/rest"
-	"strconv"
 )
 
 type CloseEmbedElement func(worker *worker.Context, ticket database.Ticket) []component.Component
@@ -36,7 +37,7 @@ func TranscriptLinkElement(condition bool) CloseEmbedElement {
 			transcriptEmoji = customisation.EmojiTranscript.BuildEmoji()
 		}
 
-		transcriptLink := fmt.Sprintf("https://dashboard.ticketsbot.net/manage/%d/transcripts/view/%d", ticket.GuildId, ticket.Id)
+		transcriptLink := fmt.Sprintf("https://dashboard.ticketsbot.cloud/manage/%d/transcripts/view/%d", ticket.GuildId, ticket.Id)
 
 		return utils.Slice(component.BuildButton(component.Button{
 			Label: "View Online Transcript",

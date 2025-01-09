@@ -2,6 +2,8 @@ package general
 
 import (
 	"fmt"
+	"time"
+
 	"github.com/TicketsBot/common/permission"
 	"github.com/TicketsBot/worker/bot/command"
 	"github.com/TicketsBot/worker/bot/command/registry"
@@ -13,7 +15,6 @@ import (
 	"github.com/rxdn/gdl/objects/channel/embed"
 	"github.com/rxdn/gdl/objects/interaction"
 	"github.com/rxdn/gdl/objects/interaction/component"
-	"time"
 )
 
 type VoteCommand struct {
@@ -86,7 +87,7 @@ func buildVoteComponents(ctx registry.CommandContext, allowRedeem bool) []compon
 		Label: ctx.GetMessage(i18n.TitleVote),
 		Style: component.ButtonStyleLink,
 		Emoji: utils.BuildEmoji("🔗"),
-		Url:   utils.Ptr("https://vote.ticketsbot.net"),
+		Url:   utils.Ptr("https://vote.ticketsbot.cloud"),
 	})
 
 	redeemButton := component.BuildButton(component.Button{

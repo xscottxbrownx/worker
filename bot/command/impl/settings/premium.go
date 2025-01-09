@@ -1,6 +1,8 @@
 package settings
 
 import (
+	"time"
+
 	"github.com/TicketsBot/common/permission"
 	"github.com/TicketsBot/common/premium"
 	"github.com/TicketsBot/worker/bot/command"
@@ -13,7 +15,6 @@ import (
 	"github.com/rxdn/gdl/objects/guild/emoji"
 	"github.com/rxdn/gdl/objects/interaction"
 	"github.com/rxdn/gdl/objects/interaction/component"
-	"time"
 )
 
 type PremiumCommand struct {
@@ -76,7 +77,7 @@ func (PremiumCommand) Execute(ctx registry.CommandContext) {
 					Label: ctx.GetMessage(i18n.MessagePremiumOpenServerSelector),
 					Style: component.ButtonStyleLink,
 					Emoji: utils.BuildEmoji("🔗"),
-					Url:   utils.Ptr("https://dashboard.ticketsbot.net/premium/select-servers"),
+					Url:   utils.Ptr("https://dashboard.ticketsbot.cloud/premium/select-servers"),
 				}),
 			}, buttons...)
 		}
@@ -135,7 +136,7 @@ func (PremiumCommand) Execute(ctx registry.CommandContext) {
 						Label: ctx.GetMessage(i18n.Website),
 						Style: component.ButtonStyleLink,
 						Emoji: utils.BuildEmoji("🔗"),
-						Url:   utils.Ptr("https://ticketsbot.net/premium"),
+						Url:   utils.Ptr("https://ticketsbot.cloud/premium"),
 					}),
 				),
 			),
