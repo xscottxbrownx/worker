@@ -62,7 +62,7 @@ func SendWelcomeMessage(
 		}
 
 		if cmd.PremiumTier() == premium.None {
-			formAnswersEmbed.SetFooter("Powered by ticketsbot.cloud", "https://ticketsbot.net/assets/img/logo.png")
+			formAnswersEmbed.SetFooter("Powered by ticketsbot.cloud", "https://ticketsbot.cloud/assets/img/logo.png")
 		}
 
 		embeds = append(embeds, formAnswersEmbed)
@@ -578,7 +578,7 @@ func BuildCustomEmbed(
 	}
 
 	if branding {
-		e.SetFooter("Powered by ticketsbot.cloud", "https://ticketsbot.net/assets/img/logo.png")
+		e.SetFooter("Powered by ticketsbot.cloud", "https://ticketsbot.cloud/assets/img/logo.png")
 	} else if customEmbed.FooterText != nil {
 		e.SetFooter(*customEmbed.FooterText, utils.ValueOrZero(customEmbed.FooterIconUrl))
 	}
