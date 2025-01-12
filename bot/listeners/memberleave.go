@@ -2,17 +2,17 @@ package listeners
 
 import (
 	"context"
+	"time"
+
 	"github.com/TicketsBot/common/sentry"
 	"github.com/TicketsBot/worker"
 	cmdcontext "github.com/TicketsBot/worker/bot/command/context"
 	"github.com/TicketsBot/worker/bot/constants"
 	"github.com/TicketsBot/worker/bot/dbclient"
-	"github.com/TicketsBot/worker/bot/listeners/messagequeue"
 	"github.com/TicketsBot/worker/bot/logic"
 	"github.com/TicketsBot/worker/bot/utils"
 	"github.com/rxdn/gdl/gateway/payloads/events"
 	gdlUtils "github.com/rxdn/gdl/utils"
-	"time"
 )
 
 // Remove user permissions when they leave
@@ -66,7 +66,7 @@ func OnMemberLeave(worker *worker.Context, e events.GuildMemberRemove) {
 					ctx, cancel := context.WithTimeout(context.Background(), constants.TimeoutCloseTicket)
 
 					cc := cmdcontext.NewAutoCloseContext(ctx, worker, e.GuildId, *ticket.ChannelId, worker.BotId, premiumTier)
-					logic.CloseTicket(ctx, cc, gdlUtils.StrPtr(messagequeue.AutoCloseReason), true)
+					logic.CloseTicket(ctx, cc, gdlUtils.StrPtr("Automatically closed due to user leaving the server"), true)
 
 					cancel()
 				}
