@@ -593,7 +593,7 @@ func BuildCustomEmbed(
 
 	if customEmbed.ThumbnailUrl != nil {
 		imageUrl := replaceImagePlaceholder(worker, ticket, *customEmbed.ThumbnailUrl)
-		e.SetImage(imageUrl)
+		e.SetThumbnail(imageUrl)
 	}
 
 	if customEmbed.AuthorName != nil {
