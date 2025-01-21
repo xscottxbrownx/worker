@@ -587,11 +587,13 @@ func BuildCustomEmbed(
 	}
 
 	if customEmbed.ImageUrl != nil {
-		e.SetImage(*customEmbed.ImageUrl)
+		imageUrl := replaceImagePlaceholder(worker, ticket, *customEmbed.ImageUrl)
+		e.SetImage(imageUrl)
 	}
 
 	if customEmbed.ThumbnailUrl != nil {
-		e.SetThumbnail(*customEmbed.ThumbnailUrl)
+		imageUrl := replaceImagePlaceholder(worker, ticket, *customEmbed.ThumbnailUrl)
+		e.SetImage(imageUrl)
 	}
 
 	if customEmbed.AuthorName != nil {
@@ -608,4 +610,17 @@ func BuildCustomEmbed(
 	}
 
 	return e
+}
+
+func replaceImagePlaceholder(worker *worker.Context, ticket database.Ticket, imageUrl string) string {
+	if imageUrl != "%avatar_url%" {
+		return imageUrl
+	}
+
+	user, err := worker.GetUser(ticket.UserId)
+	if err != nil {
+		return ""
+	}
+
+	return user.AvatarUrl(256)
 }
