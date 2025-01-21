@@ -97,10 +97,5 @@ func (AddCommand) Execute(ctx registry.CommandContext, userId uint64) {
 		}
 	}
 
-	// ctx.Worker().CreateMessageComplex(*ticket.ChannelId, rest.CreateMessageData{
-	// 	Content: fmt.Sprintf("-# <@%d>", userId),
-	// 	Embeds:  []*embed.Embed{utils.BuildEmbed(ctx, customisation.Green, i18n.TitleAdd, i18n.MessageAddSuccess, nil, ctx.UserId())},
-	// })
-
 	ctx.ReplyPermanent(customisation.Green, i18n.TitleAdd, i18n.MessageAddSuccess, userId, *ticket.ChannelId)
 }
