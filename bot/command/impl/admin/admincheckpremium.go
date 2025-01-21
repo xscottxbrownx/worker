@@ -2,6 +2,9 @@ package admin
 
 import (
 	"fmt"
+	"strconv"
+	"time"
+
 	"github.com/TicketsBot/common/permission"
 	"github.com/TicketsBot/worker/bot/command"
 	"github.com/TicketsBot/worker/bot/command/registry"
@@ -9,8 +12,6 @@ import (
 	"github.com/TicketsBot/worker/bot/utils"
 	"github.com/TicketsBot/worker/i18n"
 	"github.com/rxdn/gdl/objects/interaction"
-	"strconv"
-	"time"
 )
 
 type AdminCheckPremiumCommand struct {
@@ -54,5 +55,5 @@ func (AdminCheckPremiumCommand) Execute(ctx registry.CommandContext, raw string)
 		return
 	}
 
-	ctx.ReplyRaw(customisation.Green, ctx.GetMessage(i18n.Admin), fmt.Sprintf("`%s` (owner <@%d> %d) has premium tier %d (src %s)", guild.Name, guild.OwnerId, guild.OwnerId, tier, src))
+	ctx.ReplyRaw(customisation.Green, ctx.GetMessage(i18n.Admin), fmt.Sprintf("Server Name: `%s`\nOwner: <@%d> `%d`\nPremium Tier: %s\nPremium Source: %s", guild.Name, guild.OwnerId, guild.OwnerId, tier.String(), src))
 }
