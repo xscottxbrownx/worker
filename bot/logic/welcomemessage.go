@@ -327,6 +327,9 @@ type PlaceholderSubstitutionFunc func(context.Context, *worker.Context, database
 const substitutionTimeout = time.Millisecond * 1500
 
 var substitutions = map[string]PlaceholderSubstitutionFunc{
+	"user_id": func(ctx context.Context, worker *worker.Context, ticket database.Ticket) string {
+		return strconv.FormatUint(ticket.UserId, 10)
+	},
 	"user": func(ctx context.Context, worker *worker.Context, ticket database.Ticket) string {
 		return fmt.Sprintf("<@%d>", ticket.UserId)
 	},
