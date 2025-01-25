@@ -1063,7 +1063,7 @@ func buildJoinThreadMessage(
 
 	panelName := "None"
 	if panel != nil {
-		panelName = panel.ButtonLabel
+		panelName = panel.Title
 	}
 
 	title := "Join Ticket"

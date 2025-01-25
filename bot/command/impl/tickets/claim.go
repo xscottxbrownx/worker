@@ -2,6 +2,7 @@ package tickets
 
 import (
 	"fmt"
+
 	"github.com/TicketsBot/common/permission"
 	"github.com/TicketsBot/worker/bot/command"
 	"github.com/TicketsBot/worker/bot/command/registry"
