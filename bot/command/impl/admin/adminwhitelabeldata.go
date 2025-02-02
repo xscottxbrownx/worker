@@ -2,6 +2,9 @@ package admin
 
 import (
 	"fmt"
+	"strings"
+	"time"
+
 	"github.com/TicketsBot/common/permission"
 	"github.com/TicketsBot/common/premium"
 	"github.com/TicketsBot/worker/bot/command"
@@ -13,8 +16,6 @@ import (
 	"github.com/rxdn/gdl/objects/channel/embed"
 	"github.com/rxdn/gdl/objects/interaction"
 	"github.com/rxdn/gdl/rest"
-	"strings"
-	"time"
 )
 
 type AdminWhitelabelDataCommand struct {
@@ -116,6 +117,7 @@ func (AdminWhitelabelDataCommand) Execute(ctx registry.CommandContext, userId ui
 		utils.EmbedFieldRaw("Public Key", publicKeyFormatted, true),
 		utils.EmbedFieldRaw("Guilds", guildsFormatted, true),
 		utils.EmbedFieldRaw("Last 3 Errors", errorsFormatted, true),
+		utils.EmbedFieldRaw("Invite Link", fmt.Sprintf("[Click Here](https://discord.com/oauth2/authorize?client_id=%s&scope=bot+applications.commands&permissions=395942816984&redirect_uri=https://docs.ticketsbot.cloud&response_type=code)", botIdFormatted), true),
 	}
 
 	ctx.ReplyWithEmbed(utils.BuildEmbedRaw(ctx.GetColour(customisation.Green), "Whitelabel", "", fields, ctx.PremiumTier()))
