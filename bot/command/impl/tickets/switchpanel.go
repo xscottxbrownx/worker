@@ -142,7 +142,7 @@ func (SwitchPanelCommand) Execute(ctx *cmdcontext.SlashCommandContext, panelId i
 	}
 
 	// Get new channel name
-	channelName, err := logic.GenerateChannelName(ctx.Context, ctx, &panel, ticket.Id, ticket.UserId, utils.NilIfZero(claimer))
+	channelName, err := logic.GenerateChannelName(ctx.Context, ctx.Worker(), &panel, ticket.GuildId, ticket.Id, ticket.UserId, utils.NilIfZero(claimer))
 	if err != nil {
 		ctx.HandleError(err)
 		return
