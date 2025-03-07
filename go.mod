@@ -4,9 +4,11 @@ go 1.23.0
 
 toolchain go1.24.0
 
+// replace github.com/TicketsBot-cloud/common => ../common
+
 require (
 	cloud.google.com/go/profiler v0.4.1
-	github.com/TicketsBot-cloud/common v0.0.0-20250208140430-b5da1dd487b3
+	github.com/TicketsBot-cloud/common v0.0.0-20250307091931-5e68ab07bbf0
 	github.com/TicketsBot-cloud/database v0.0.0-20250306095726-e4915520c1ab
 	github.com/TicketsBot/analytics-client v0.0.0-20240724103359-30f5dac821e6
 	github.com/TicketsBot/archiverclient v0.0.0-20241012221057-16a920bfb454
