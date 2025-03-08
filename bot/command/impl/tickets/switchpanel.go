@@ -6,19 +6,19 @@ import (
 	"strings"
 	"time"
 
-	"github.com/TicketsBot/common/permission"
-	"github.com/TicketsBot/common/sentry"
-	"github.com/TicketsBot/database"
-	"github.com/TicketsBot/worker/bot/command"
-	cmdcontext "github.com/TicketsBot/worker/bot/command/context"
-	"github.com/TicketsBot/worker/bot/command/registry"
-	"github.com/TicketsBot/worker/bot/constants"
-	"github.com/TicketsBot/worker/bot/customisation"
-	"github.com/TicketsBot/worker/bot/dbclient"
-	"github.com/TicketsBot/worker/bot/logic"
-	"github.com/TicketsBot/worker/bot/redis"
-	"github.com/TicketsBot/worker/bot/utils"
-	"github.com/TicketsBot/worker/i18n"
+	"github.com/TicketsBot-cloud/common/permission"
+	"github.com/TicketsBot-cloud/common/sentry"
+	"github.com/TicketsBot-cloud/database"
+	"github.com/TicketsBot-cloud/worker/bot/command"
+	cmdcontext "github.com/TicketsBot-cloud/worker/bot/command/context"
+	"github.com/TicketsBot-cloud/worker/bot/command/registry"
+	"github.com/TicketsBot-cloud/worker/bot/constants"
+	"github.com/TicketsBot-cloud/worker/bot/customisation"
+	"github.com/TicketsBot-cloud/worker/bot/dbclient"
+	"github.com/TicketsBot-cloud/worker/bot/logic"
+	"github.com/TicketsBot-cloud/worker/bot/redis"
+	"github.com/TicketsBot-cloud/worker/bot/utils"
+	"github.com/TicketsBot-cloud/worker/i18n"
 	"github.com/rxdn/gdl/objects/channel"
 	"github.com/rxdn/gdl/objects/channel/embed"
 	"github.com/rxdn/gdl/objects/interaction"
@@ -142,7 +142,7 @@ func (SwitchPanelCommand) Execute(ctx *cmdcontext.SlashCommandContext, panelId i
 	}
 
 	// Get new channel name
-	channelName, err := logic.GenerateChannelName(ctx.Context, ctx, &panel, ticket.Id, ticket.UserId, utils.NilIfZero(claimer))
+	channelName, err := logic.GenerateChannelName(ctx.Context, ctx.Worker(), &panel, ticket.GuildId, ticket.Id, ticket.UserId, utils.NilIfZero(claimer))
 	if err != nil {
 		ctx.HandleError(err)
 		return
@@ -176,7 +176,7 @@ func (SwitchPanelCommand) Execute(ctx *cmdcontext.SlashCommandContext, panelId i
 				return
 			}
 
-			msg := logic.BuildJoinThreadMessage(ctx.Context, ctx.Worker(), ctx.GuildId(), ticket.UserId, ticket.Id, &panel, threadStaff, ctx.PremiumTier())
+			msg := logic.BuildJoinThreadMessage(ctx.Context, ctx.Worker(), ctx.GuildId(), ticket.UserId, channelName, ticket.Id, &panel, threadStaff, ctx.PremiumTier())
 			if _, err := ctx.Worker().EditMessage(*settings.TicketNotificationChannel, *ticket.JoinMessageId, msg.IntoEditMessageData()); err != nil {
 				sentry.ErrorWithContext(err, ctx.ToErrorContext()) // Only log
 				return

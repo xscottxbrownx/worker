@@ -2,17 +2,18 @@ package listeners
 
 import (
 	"context"
-	"github.com/TicketsBot/common/sentry"
-	"github.com/TicketsBot/database"
-	"github.com/TicketsBot/worker"
-	cmdcontext "github.com/TicketsBot/worker/bot/command/context"
-	"github.com/TicketsBot/worker/bot/constants"
-	"github.com/TicketsBot/worker/bot/dbclient"
-	"github.com/TicketsBot/worker/bot/errorcontext"
-	"github.com/TicketsBot/worker/bot/logic"
-	"github.com/TicketsBot/worker/bot/utils"
-	"github.com/rxdn/gdl/gateway/payloads/events"
 	"time"
+
+	"github.com/TicketsBot-cloud/common/sentry"
+	"github.com/TicketsBot-cloud/database"
+	"github.com/TicketsBot-cloud/worker"
+	cmdcontext "github.com/TicketsBot-cloud/worker/bot/command/context"
+	"github.com/TicketsBot-cloud/worker/bot/constants"
+	"github.com/TicketsBot-cloud/worker/bot/dbclient"
+	"github.com/TicketsBot-cloud/worker/bot/errorcontext"
+	"github.com/TicketsBot-cloud/worker/bot/logic"
+	"github.com/TicketsBot-cloud/worker/bot/utils"
+	"github.com/rxdn/gdl/gateway/payloads/events"
 )
 
 func OnThreadUpdate(worker *worker.Context, e events.ThreadUpdate) {
@@ -72,7 +73,8 @@ func OnThreadUpdate(worker *worker.Context, e events.ThreadUpdate) {
 				return
 			}
 
-			data := logic.BuildThreadReopenMessage(ctx, worker, ticket.GuildId, ticket.UserId, ticket.Id, panel, staffCount, premiumTier)
+			name, _ := logic.GenerateChannelName(ctx, worker, panel, ticket.GuildId, ticket.Id, ticket.UserId, nil)
+			data := logic.BuildThreadReopenMessage(ctx, worker, ticket.GuildId, ticket.UserId, name, ticket.Id, panel, staffCount, premiumTier)
 			msg, err := worker.CreateMessageComplex(*settings.TicketNotificationChannel, data.IntoCreateMessageData())
 			if err != nil {
 				sentry.ErrorWithContext(err, errorcontext.WorkerErrorContext{Guild: e.GuildId})
